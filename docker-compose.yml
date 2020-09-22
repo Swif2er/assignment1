@@ -1,0 +1,33 @@
+version: '3'
+services:
+
+  web-server1:
+    build: ./web-server1
+    ports:
+      - "5001:5000"
+
+  web-server2:
+    build: ./web-server2
+    ports:
+      - "5002:5000"
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "8080:80"
+    depends_on:
+      - web-server1
+      - web-server2
+
+  # jenkins:
+  #   image: jenkins/jenkins:lts
+  #   privileged: true
+  #   user: root
+  #   ports:
+  #     - "8081:8080"
+  #     - "50000:50000"
+  #   container_name: jenkins
+  #   volumes:
+  #     - ~/jenkins:/var/jenkins_home
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - /usr/local/bin/docker:/usr/local/bin/docker
